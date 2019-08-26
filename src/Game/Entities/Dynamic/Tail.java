@@ -1,5 +1,7 @@
 package Game.Entities.Dynamic;
 
+import java.awt.Color;
+
 import Main.Handler;
 
 /**
@@ -11,7 +13,7 @@ public class Tail {
         this.x=x;
         this.y=y;
         handler.getWorld().playerLocation[x][y]=true;
-
+        
     }
 
 }
