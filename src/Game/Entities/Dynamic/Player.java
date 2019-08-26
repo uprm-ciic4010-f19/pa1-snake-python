@@ -17,7 +17,7 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
-
+	public int score;
 	public int moveCounter;
 
 	public String direction;//is your first name one?
@@ -30,16 +30,21 @@ public class Player {
 		direction= "Right";
 		justAte = false;
 		lenght= 1;
-
+		score = 0;
+//		int appleEaten = 0;
 	}
 
 
 	public void tick(){
 		moveCounter++;
-		if(moveCounter>=5) {
+		if(moveCounter>=10) {
 			checkCollisionAndMove();
-			moveCounter=0;
+	
 		}
+				
+		 
+		
+
 		// Added W,S,D,A in order to control de snake.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
 			direction="Up";
@@ -54,9 +59,17 @@ public class Player {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
 			handler.getWorld().body.addFirst(new Tail(xCoord, yCoord,handler));
 		}
+		//Button added (+) Speed boost.
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_PLUS)){
+			moveCounter++;
+		}
+		//Button added (-) Speed reduced
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+			moveCounter--;
+		}
 	}
 
-	
+
 	public void checkCollisionAndMove(){
 		handler.getWorld().playerLocation[xCoord][yCoord]=false;
 		int x = xCoord;
@@ -117,6 +130,7 @@ public class Player {
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
+
 				}
 
 			}
@@ -130,6 +144,8 @@ public class Player {
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
+		//		moveCounter = moveCounter + 4;
+		//		System.out.println(moveCounter);
 		switch (direction){
 		case "Left":
 			if( handler.getWorld().body.isEmpty()){
@@ -208,6 +224,7 @@ public class Player {
 			if( handler.getWorld().body.isEmpty()){
 				if(this.yCoord!=0){
 					tail=(new Tail(this.xCoord,this.yCoord-1,handler));
+
 				}else{
 					if(this.xCoord!=0){
 						tail=(new Tail(this.xCoord-1,this.yCoord,handler));
