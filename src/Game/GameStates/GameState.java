@@ -35,7 +35,7 @@ public class GameState extends State {
 
     @Override
     public void tick() {
-
+    	
         handler.getWorld().tick();
 
     }
@@ -44,7 +44,10 @@ public class GameState extends State {
     public void render(Graphics g) {
 
         handler.getWorld().render(g);
-
+		g.setColor(Color.green);
+		Font font = new Font ("SansSerif", Font.PLAIN, 24);
+		g.setFont(font);
+		g.drawString("Score: " + Player.score,handler.getWidth()/10-70 ,handler.getHeight()/10-50);
     }
 
 }

@@ -17,7 +17,7 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
-	public int score;
+	public static double score;
 	public int moveCounter;
 	public int speed;
 	public String direction;//is your first name one?
@@ -139,6 +139,7 @@ public class Player {
 
 	public void Eat(){
 		lenght++;
+		score =  Math.sqrt(2*score+1) ;
 		speed = speed - 4;
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
