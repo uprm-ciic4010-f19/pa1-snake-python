@@ -11,6 +11,7 @@ import Resources.Images;
 
 import javax.sound.sampled.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -159,9 +160,14 @@ public class GameSetUp implements Runnable {
         keyManager.tick();
 
         //game states are the menus
+        
+     	if(State.getState() == gameState && handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
+     		State.setState(pauseState);
+     	}
         if(State.getState() != null)
             State.getState().tick();
     }
+    
 
     private void render(){
         bs = display.getCanvas().getBufferStrategy();
