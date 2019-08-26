@@ -143,8 +143,6 @@ public class Player {
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
-		//		moveCounter = moveCounter + 4;
-		//		System.out.println(moveCounter);
 		switch (direction){
 		case "Left":
 			if( handler.getWorld().body.isEmpty()){
