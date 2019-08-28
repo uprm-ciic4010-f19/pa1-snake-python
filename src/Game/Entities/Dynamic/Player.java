@@ -1,10 +1,11 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+
+import Main.Handler;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -13,6 +14,7 @@ public class Player {
 
 	public int lenght;
 	public boolean justAte;
+	public static boolean dead;
 	private Handler handler;
 
 	public int xCoord;
@@ -30,6 +32,7 @@ public class Player {
 		moveCounter = 0;
 		direction= "Right";
 		justAte = false;
+		dead = false;
 		lenght= 1;
 		score = 0;
 	}
@@ -114,7 +117,6 @@ public class Player {
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
 		}
-
 	}
 
 	public void render(Graphics g,Boolean[][] playeLocation){
@@ -130,11 +132,8 @@ public class Player {
 							handler.getWorld().GridPixelsize);
 
 				}
-
 			}
 		}
-
-
 	}
 
 	public void Eat(){
@@ -254,7 +253,8 @@ public class Player {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
 				handler.getWorld().playerLocation[i][j]=false;
-
+				
+				dead = true;
 			}
 		}
 	}

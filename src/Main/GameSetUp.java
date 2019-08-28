@@ -1,6 +1,22 @@
 package Main;
 
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Display.DisplayScreen;
+import Game.Entities.Dynamic.Player;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
@@ -8,14 +24,7 @@ import Game.GameStates.State;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
-
-import javax.sound.sampled.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import Game.GameStates.GameOverState;
 
 
 /**
@@ -57,7 +66,7 @@ public class GameSetUp implements Runnable {
 
     private BufferedImage loading;
 
-    public GameSetUp(String title, int width, int height){
+    public GameSetUp(String title, int width, int height) {
 
         this.width = width;
         this.height = height;
@@ -83,7 +92,7 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
-        //gameOver = new GameOverState(handler);
+        gameOver = new GameOverState(handler);
 
         State.setState(menuState);
 
@@ -165,6 +174,12 @@ public class GameSetUp implements Runnable {
         
      	if(State.getState() == gameState && handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
      		State.setState(pauseState);
+     	}
+     	if(State.getState() == gameState && Player.dead == true  ) {
+     		State.setState(gameOver);
+     	}
+    	if(State.getState() != gameOver && Player.dead == true  ) {
+     		Player.dead = false;
      	}
         if(State.getState() != null)
             State.getState().tick();

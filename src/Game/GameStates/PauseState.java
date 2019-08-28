@@ -34,11 +34,6 @@ public class PauseState extends State {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().menuState);
         }));
-
-
-
-
-
     }
 
     @Override
@@ -54,8 +49,6 @@ public class PauseState extends State {
 
             State.setState(handler.getGame().gameState);
         }
-
-
     }
 
     @Override
