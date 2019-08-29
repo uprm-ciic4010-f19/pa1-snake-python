@@ -1,7 +1,4 @@
 package Game.Entities.Dynamic;
-
-import java.awt.Color;
-
 import Main.Handler;
 
 /**
@@ -17,3 +14,5 @@ public class Tail {
     }
 
 }
+
+
