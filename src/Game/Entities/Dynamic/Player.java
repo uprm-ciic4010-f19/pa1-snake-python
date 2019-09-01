@@ -116,7 +116,6 @@ public class Player {
 		for (int i = 0; i < handler.getWorld().body.size(); i++) {
 			if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
 					handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) {
-				System.out.println("Dead");
 				dead = true;
 			}
 		}
