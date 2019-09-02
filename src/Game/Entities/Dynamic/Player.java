@@ -21,11 +21,15 @@ public class Player {
 	public int moveCounter;
 	public int speed;
 	public String direction;//is your first name one?
+	public boolean Left = false;
+	public boolean Right = false;
+	public boolean Up = false;
+	public boolean Down = false;
 
 	public Player(Handler handler){
 		this.handler = handler;
-		xCoord = 0;
-		yCoord = 0;
+		xCoord = 2;
+		yCoord = 2;
 		speed = 20;
 		moveCounter = 0;
 		direction= "Right";
@@ -40,18 +44,29 @@ public class Player {
 		if(moveCounter>=speed) {
 			checkCollisionAndMove();
 			moveCounter=0;
-	
+
 		}
 
 		// Added W,S,D,A in order to control the snake.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
 			direction="Up";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
 			direction="Down";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
+
+
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
 			direction="Left";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+
+
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
 			direction="Right";
+
+
+
 		}
 		//Button added (N).
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
@@ -74,34 +89,43 @@ public class Player {
 		int y = yCoord;
 		switch (direction){
 		case "Left":
+			
 			if(xCoord==0){
 				kill();
-			}else{
+			}else {
 				xCoord--;
 			}
+			
 			break;
 		case "Right":
+
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				kill();
 			}else{
 				xCoord++;
 			}
+
 			break;
 		case "Up":
+
 			if(yCoord==0){
 				kill();
 			}else{
 				yCoord--;
 			}
+
 			break;
 		case "Down":
+
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				kill();
 			}else{
 				yCoord++;
 			}
+
 			break;
 		}
+
 		handler.getWorld().playerLocation[xCoord][yCoord]=true;
 
 
@@ -114,13 +138,45 @@ public class Player {
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
 		}
+		
+		//Death 1
+		//		if(handler.getWorld().body.isEmpty()) {
+		//			System.out.println("Hello");
+		//		}else if (handler.getWorld().playerLocation[xCoord][yCoord] == false){
+		//			System.out.println("die");
+		//		}
 
+
+
+
+		// Movement through the screen
+		
+			if (handler.getWorld().player.xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
+				handler.getWorld().player.xCoord = handler.getWorld().player.xCoord - handler.getWorld().player.xCoord;
+				kill();
+
+			}
+			else if (handler.getWorld().player.xCoord == 0) {
+				handler.getWorld().player.xCoord = handler.getWorld().player.xCoord + handler.getWorld().GridWidthHeightPixelCount - 2 ;
+				kill();
+			}
+
+			if (handler.getWorld().player.yCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
+				handler.getWorld().player.yCoord = handler.getWorld().player.yCoord - handler.getWorld().player.yCoord;
+				kill();
+			}
+			else if(handler.getWorld().player.yCoord == 0){
+				handler.getWorld().player.yCoord = yCoord + handler.getWorld().GridWidthHeightPixelCount - 2;
+				kill();
+			}
+			
+		
 	}
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 		Random r = new Random();
-		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
-			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount ; i++) {
+			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount ; j++) {
 				g.setColor(Color.GREEN);
 
 				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
