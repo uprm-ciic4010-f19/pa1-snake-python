@@ -27,12 +27,9 @@ public abstract class WorldBase {
 
     protected Handler handler;
 
-
     public Boolean appleOnBoard;
     protected Apple apple;
     public Boolean[][] appleLocation;
-
-
     public Boolean[][] playerLocation;
 
     public LinkedList<Tail> body = new LinkedList<>();
@@ -42,12 +39,9 @@ public abstract class WorldBase {
         this.handler = handler;
 
         appleOnBoard = false;
-
-
     }
+    
     public void tick(){
-
-
 
     }
 
@@ -61,8 +55,14 @@ public abstract class WorldBase {
 			*/
         }
 
-
-
     }
+
+	public Apple getApple() {
+		return apple;
+	}
+
+	public void setApple(Apple apple) {
+		this.apple = apple;
+	}
 
 }

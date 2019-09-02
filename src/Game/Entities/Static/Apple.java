@@ -7,16 +7,24 @@ import Main.Handler;
  */
 public class Apple {
 
-    private Handler handler;
+	private Handler handler;
 
-    public int xCoord;
-    public int yCoord;
+	public int xCoord;
+	public int yCoord;
 
-    public Apple(Handler handler,int x, int y){
-        this.handler=handler;
-        this.xCoord=x;
-        this.yCoord=y;
-    }
+	public boolean isGood = true;
+	
+	public Apple(Handler handler,int x, int y){
+		this.handler=handler;
+		this.xCoord=x;
+		this.yCoord=y;
+	}
+		
+	public boolean isGood() {
+		return isGood;
+	}
 
-
+	public void setIsGood(boolean isGood) {
+		this.isGood = isGood;
+	}
 }

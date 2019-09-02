@@ -29,8 +29,6 @@ public class GameState extends State {
             }
         }
         handler.getWorld().playerLocation[handler.getWorld().player.xCoord][handler.getWorld().player.yCoord] =true;
-
-
     }
 
     @Override
@@ -49,5 +47,4 @@ public class GameState extends State {
 		g.setFont(font);
 		g.drawString("Score: " + Player.score,handler.getWidth()/10-70 ,handler.getHeight()/10-50);
     }
-
 }

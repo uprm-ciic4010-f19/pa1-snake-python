@@ -16,13 +16,12 @@ public class DisplayScreen {
     private Canvas canvas;
     private String title;
     private int width, height;
+	public static int background = new Color(128,0,128).getRGB();
 
     public DisplayScreen(String title, int width, int height){
         this.title = title;
         this.width = width;
         this.height = height;
-
-
 
         createDisplay();
     }
@@ -37,7 +36,7 @@ public class DisplayScreen {
         frame.setBackground(Color.black);
 
         try {
-            frame.setIconImage(ImageIO.read(new File("res/Sheets/icon.png")));
+            frame.setIconImage(ImageIO.read(new File("res/Sheets/SnakeIcon.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +46,7 @@ public class DisplayScreen {
         canvas.setMaximumSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
-        canvas.setBackground(Color.black);
+        canvas.setBackground(new Color(background));
 
         frame.add(canvas);
         frame.pack();

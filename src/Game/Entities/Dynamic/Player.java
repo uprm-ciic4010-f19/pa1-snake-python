@@ -1,10 +1,11 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+
+import Main.Handler;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -13,6 +14,7 @@ public class Player {
 
 	public int lenght;
 	public boolean justAte;
+	public static boolean dead;
 	private Handler handler;
 
 	public int xCoord;
@@ -20,6 +22,7 @@ public class Player {
 	public static double score;
 	public int moveCounter;
 	public int speed;
+	public int steps;
 	public String direction;//is your first name one?
 	public boolean Left = false;
 	public boolean Right = false;
@@ -32,12 +35,13 @@ public class Player {
 		yCoord = 2;
 		speed = 20;
 		moveCounter = 0;
-		direction= "Right";
+		direction = "Right";
 		justAte = false;
-		lenght= 1;
+		dead = false;
+		lenght = 0;
 		score = 0;
+		steps = 0;
 	}
-
 
 	public void tick(){
 		moveCounter++;
@@ -45,28 +49,19 @@ public class Player {
 			checkCollisionAndMove();
 			moveCounter=0;
 
-		}
-
+		}	
 		// Added W,S,D,A in order to control the snake.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
 			direction="Up";
-
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
 			direction="Down";
-
-
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) ||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
 			direction="Left";
-
-
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)|| handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 			direction="Right";
-
-
-
 		}
 		//Button added (N).
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
@@ -80,22 +75,25 @@ public class Player {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
 			speed++;
 		}
+		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
+			handler.getWorld().getApple().setIsGood(false);
+		}
 	}
 
-
 	public void checkCollisionAndMove(){
+		steps++;			
 		handler.getWorld().playerLocation[xCoord][yCoord]=false;
 		int x = xCoord;
 		int y = yCoord;
 		switch (direction){
 		case "Left":
-			
+
 			if(xCoord==0){
 				kill();
 			}else {
 				xCoord--;
 			}
-			
+
 			break;
 		case "Right":
 
@@ -128,9 +126,15 @@ public class Player {
 
 		handler.getWorld().playerLocation[xCoord][yCoord]=true;
 
-
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
+		}
+
+		for (int i = 0; i < handler.getWorld().body.size(); i++) {
+			if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
+					handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) {
+				dead = true;
+			}
 		}
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -138,7 +142,7 @@ public class Player {
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
 		}
-		
+
 		//Death 1
 		//		if(handler.getWorld().body.isEmpty()) {
 		//			System.out.println("Hello");
@@ -150,53 +154,87 @@ public class Player {
 
 
 		// Movement through the screen
-		
-			if (handler.getWorld().player.xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-				handler.getWorld().player.xCoord = handler.getWorld().player.xCoord - handler.getWorld().player.xCoord;
-				kill();
 
-			}
-			else if (handler.getWorld().player.xCoord == 0) {
-				handler.getWorld().player.xCoord = handler.getWorld().player.xCoord + handler.getWorld().GridWidthHeightPixelCount - 2 ;
-				kill();
-			}
+		if (handler.getWorld().player.xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
+			handler.getWorld().player.xCoord = handler.getWorld().player.xCoord - handler.getWorld().player.xCoord;
+			kill();
 
-			if (handler.getWorld().player.yCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-				handler.getWorld().player.yCoord = handler.getWorld().player.yCoord - handler.getWorld().player.yCoord;
-				kill();
-			}
-			else if(handler.getWorld().player.yCoord == 0){
-				handler.getWorld().player.yCoord = yCoord + handler.getWorld().GridWidthHeightPixelCount - 2;
-				kill();
-			}
-			
-		
+		}
+		else if (handler.getWorld().player.xCoord == 0) {
+			handler.getWorld().player.xCoord = handler.getWorld().player.xCoord + handler.getWorld().GridWidthHeightPixelCount - 2 ;
+			kill();
+		}
+
+		if (handler.getWorld().player.yCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
+			handler.getWorld().player.yCoord = handler.getWorld().player.yCoord - handler.getWorld().player.yCoord;
+			kill();
+		}
+		else if(handler.getWorld().player.yCoord == 0){
+			handler.getWorld().player.yCoord = yCoord + handler.getWorld().GridWidthHeightPixelCount - 2;
+			kill();
+		}
 	}
 
-	public void render(Graphics g,Boolean[][] playeLocation){
+	public static int snake = new Color(0,255,0).getRGB();
+	public static int apple = new Color(255,0,0).getRGB();
+	public static int rotten = new Color(128,0,0).getRGB();
+
+	public void render(Graphics g,Boolean[][] playerLocation){
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount ; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount ; j++) {
-				g.setColor(Color.GREEN);
 
-				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+
+				g.setColor(new Color(snake));
+				if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-
 				}
-
+				if(handler.getWorld().getApple().isGood() == true){
+					if(handler.getWorld().appleLocation[i][j]) {
+						g.setColor(new Color(apple));
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);
+					}
+				}
+				if(handler.getWorld().getApple().isGood() == false) {
+					g.setColor(new Color(rotten));
+					if(handler.getWorld().appleLocation[i][j]) {
+						g.setColor(new Color(rotten));
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);
+					}
+				}
 			}
 		}
+	}
 
-
+	public double score() {
+		justAte = false;
+		if(handler.getWorld().getApple().isGood() == false) {
+			score = score - Math.sqrt(2*score+1);
+		}
+		if(handler.getWorld().getApple().isGood() == true) {
+			score =  Math.sqrt(2*score+1);
+		}
+		if(score < 0) {
+			score = 0;
+		}
+		return score;
 	}
 
 	public void Eat(){
 		lenght++;
-		score =  Math.sqrt(2*score+1) ;
-		speed = speed - 4;
+		score();
+		justAte = true;
+		steps=0;
+
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
@@ -223,7 +261,6 @@ public class Player {
 
 					}
 				}
-
 			}
 			break;
 		case "Right":
@@ -247,7 +284,6 @@ public class Player {
 						tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
 					}
 				}
-
 			}
 			break;
 		case "Up":
@@ -271,7 +307,6 @@ public class Player {
 						tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
 					}
 				}
-
 			}
 			break;
 		case "Down":
@@ -300,8 +335,22 @@ public class Player {
 			}
 			break;
 		}
-		handler.getWorld().body.addLast(tail);
-		handler.getWorld().playerLocation[tail.x][tail.y] = true;
+		if(handler.getWorld().getApple().isGood() == true){
+			speed = speed - 4;
+			handler.getWorld().body.addLast(tail);
+			handler.getWorld().playerLocation[tail.x][tail.y] = true;
+		}
+		if(handler.getWorld().getApple().isGood() == false) {
+			speed = speed + 4;
+			if(!handler.getWorld().body.isEmpty() ){
+				handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
+				handler.getWorld().body.removeLast();
+				kill();
+			}
+			else {
+				kill();
+			}
+		}
 	}
 
 	public void kill(){
