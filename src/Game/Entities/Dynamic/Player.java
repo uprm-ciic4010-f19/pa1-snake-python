@@ -53,15 +53,27 @@ public class Player {
 		// Added W,S,D,A in order to control the snake.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
 			direction="Up";
+			Up = true;
+			Right = true;
+			Left = true;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
 			direction="Down";
+			Down = true;
+			Right = true;
+			Left = true;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) ||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
 			direction="Left";
+			Up = true;
+			Down = true;
+			Left = true;
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 			direction="Right";
+			Up = true;
+			Right = true;
+			Down = true;
 		}
 		//Button added (N).
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
@@ -75,6 +87,7 @@ public class Player {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
 			speed++;
 		}
+		//Checking the state of the apple.
 		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
 			handler.getWorld().getApple().setIsGood(false);
 		}
@@ -87,38 +100,41 @@ public class Player {
 		int y = yCoord;
 		switch (direction){
 		case "Left":
-
+		if (Left == true) {
 			if(xCoord==0){
 				kill();
 			}else {
 				xCoord--;
 			}
+		}
 
 			break;
 		case "Right":
-
+			if (Right == true) {
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				kill();
 			}else{
 				xCoord++;
 			}
-
+			}
 			break;
 		case "Up":
-
+			if (Up == true) {
 			if(yCoord==0){
 				kill();
 			}else{
 				yCoord--;
 			}
+			}
 
 			break;
 		case "Down":
-
+			if (Down == true) {
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				kill();
 			}else{
 				yCoord++;
+			}
 			}
 
 			break;
