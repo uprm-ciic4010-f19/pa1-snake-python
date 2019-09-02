@@ -159,16 +159,6 @@ public class Player {
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
 		}
 
-		//Death 1
-		//		if(handler.getWorld().body.isEmpty()) {
-		//			System.out.println("Hello");
-		//		}else if (handler.getWorld().playerLocation[xCoord][yCoord] == false){
-		//			System.out.println("die");
-		//		}
-
-
-
-
 		// Movement through the screen
 
 		if (handler.getWorld().player.xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
