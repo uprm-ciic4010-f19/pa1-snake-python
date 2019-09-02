@@ -18,6 +18,7 @@ public class Images {
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
+    public static BufferedImage[] Reset;
     public static ImageIcon icon;
     public static ImageIcon snakeIcon;
 
@@ -28,6 +29,7 @@ public class Images {
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
+        Reset = new BufferedImage[2];
 
         try {
 
@@ -43,6 +45,8 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverBut.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
+            Reset[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Reset.png"));
+            Reset[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ResetP.png"));
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             snakeIcon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/SnakeIcon.png")));
