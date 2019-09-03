@@ -48,7 +48,7 @@ public class Player {
 
 		// Added W,S,D,A in order to control the snake.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
-			if(!(direction == "Down") ) {
+			if(!(direction == "Down")) {
 				direction="Up";
 			}
 		}
@@ -93,28 +93,28 @@ public class Player {
 		switch (direction){
 		case "Left":
 			if(xCoord==0){
-				kill();
+				handler.getWorld().player.xCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else {
 				xCoord--;
 			}
 			break;
 		case "Right":
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				handler.getWorld().player.xCoord = 0;
 			}else{
 				xCoord++;
 			}
 			break;
 		case "Up":
 			if(yCoord==0){
-				kill();
+				handler.getWorld().player.yCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
 				yCoord--;
 			}
 			break;
 		case "Down":
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				handler.getWorld().player.yCoord = 0;
 			}else{
 				yCoord++;
 			}
@@ -138,24 +138,6 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
-		}
-
-		// Movement through the screen
-		if (handler.getWorld().player.xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-			handler.getWorld().player.xCoord = 0;
-			kill();
-		}
-		else if (handler.getWorld().player.xCoord == 0) {
-			handler.getWorld().player.xCoord = handler.getWorld().GridWidthHeightPixelCount - 2;
-			kill();
-		}
-		if (handler.getWorld().player.yCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-			handler.getWorld().player.yCoord = 0;
-			kill();
-		}
-		else if(handler.getWorld().player.yCoord == 0){
-			handler.getWorld().player.yCoord = handler.getWorld().GridWidthHeightPixelCount - 2;
-			kill();
 		}
 	}
 
@@ -340,9 +322,7 @@ public class Player {
 		lenght = 0;
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-
 				handler.getWorld().playerLocation[i][j]=false;
-
 			}
 		}
 	}
