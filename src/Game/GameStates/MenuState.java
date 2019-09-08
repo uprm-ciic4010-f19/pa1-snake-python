@@ -31,7 +31,7 @@ public class MenuState extends State {
                 State.setState(handler.getGame().gameState);
             }
         })); 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2+32, 128, 64, Images.Options, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2+32, 128, 64, Images.butstart, new ClickListlener() {
             @Override
             public void onClick() {
             	Main.GameSetUp.multiplayer = true;
