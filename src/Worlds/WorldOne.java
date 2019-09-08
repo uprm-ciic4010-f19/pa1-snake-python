@@ -19,13 +19,20 @@ public class WorldOne extends WorldBase{
 		GridPixelsize = (800/GridWidthHeightPixelCount);
 		playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
 		appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
-
+		playerLocation1 = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
+		appleLocation1 = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
 	}
 
 	@Override
 	public void tick() {
-		super.tick();
-		player.tick();
+		if(Main.GameSetUp.multiplayer == true) {
+			super.tick();
+			player.tick();
+			player2.tick();
+		}else {
+			super.tick();
+			player.tick();
+		}
 		if(!appleOnBoard){
 			appleOnBoard=true;
 			int appleX = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
@@ -34,14 +41,14 @@ public class WorldOne extends WorldBase{
 			//change coordinates till one is selected in which the player is not standing
 			boolean goodCoordinates=false;
 			do{
-				if(!handler.getWorld().playerLocation[appleX][appley]){
+				if(!handler.getWorld().playerLocation[appleX][appley] || !handler.getWorld().playerLocation1[appleX][appley]){
 					goodCoordinates=true;
 				}
 			}while(!goodCoordinates);
 
 			apple = new Apple(handler,appleX,appley);
 			appleLocation[appleX][appley]=true;
-
+			appleLocation1[appleX][appley]=true;
 		}
 	}
 
@@ -49,5 +56,8 @@ public class WorldOne extends WorldBase{
 	public void render(Graphics g){
 		super.render(g);
 		player.render(g,playerLocation);
+		if(Main.GameSetUp.multiplayer == true) {
+			player2.render(g, playerLocation1);
+		}
 	}
 }

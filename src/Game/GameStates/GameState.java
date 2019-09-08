@@ -4,7 +4,7 @@ import Game.Entities.Dynamic.Player;
 import Main.Handler;
 import Worlds.WorldBase;
 import Worlds.WorldOne;
-
+import Game.Entities.Dynamic.Player2;
 import java.awt.*;
 
 
@@ -20,20 +20,24 @@ public class GameState extends State {
         world = new WorldOne(handler);
         handler.setWorld(world);
         handler.getWorld().player= new Player(handler);
+        handler.getWorld().player2 = new Player2(handler);
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
                 handler.getWorld().playerLocation[i][j]=false;
                 handler.getWorld().appleLocation[i][j]=false;
+                handler.getWorld().playerLocation1[i][j]=false;
+                handler.getWorld().appleLocation1[i][j]=false;
 
             }
         }
         handler.getWorld().playerLocation[handler.getWorld().player.xCoord][handler.getWorld().player.yCoord] =true;
+        handler.getWorld().playerLocation1[handler.getWorld().player2.xCoord][handler.getWorld().player2.yCoord] =true;
     }
 
     @Override
     public void tick() {
-    	
+    	 
         handler.getWorld().tick();
 
     }

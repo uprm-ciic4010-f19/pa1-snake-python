@@ -17,10 +17,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Display.DisplayScreen;
 import Game.Entities.Dynamic.Player;
+import Game.Entities.Dynamic.Player2;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
+import Game.GameStates.WinnerState;
 import Input.KeyManager;
 import Input.MouseManager;
 import Resources.Images;
@@ -52,11 +54,15 @@ public class GameSetUp implements Runnable {
     private Handler handler;
 
     //States
+    public State winState;
     public State gameState;
     public State menuState;
     public State pauseState;
     public State gameOver;
-
+    public static Boolean multiplayer = false;
+    public static Boolean winner1 = false;
+    public static Boolean winner2 = false;
+    
     //Res.music
     private InputStream audioFile;
     private AudioInputStream audioStream;
@@ -70,7 +76,7 @@ public class GameSetUp implements Runnable {
 
         this.width = width;
         this.height = height;
-        this.title = title;
+        this.title = title; 
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
 
@@ -88,7 +94,7 @@ public class GameSetUp implements Runnable {
 
 
         handler = new Handler(this);
-
+        winState = new WinnerState(handler);
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
@@ -175,10 +181,10 @@ public class GameSetUp implements Runnable {
      	if(State.getState() == gameState && handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
      		State.setState(pauseState);
      	}
-     	if(State.getState() == gameState && Player.dead == true  ) {
+     	if(State.getState() == gameState && Player.dead == true || Player2.dead == true) {
      		State.setState(gameOver);
      	}
-    	if(State.getState() != gameOver && Player.dead == true  ) {
+    	if(State.getState() != gameOver && Player.dead == true || Player2.dead == true ) {
      		Player.dead = false;
      	}
         if(State.getState() != null)

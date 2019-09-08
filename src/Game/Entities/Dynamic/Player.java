@@ -34,7 +34,7 @@ public class Player {
 		direction = "Right";
 		justAte = false;
 		dead = false;
-		lenght = 0;
+		lenght = 0; 
 		score = 0;
 		steps = 0;
 	}
@@ -47,22 +47,22 @@ public class Player {
 		}	
 
 		// Added W,S,D,A in order to control the snake.
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
 			if(!(direction == "Down")) {
 				direction="Up";
 			}
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
 			if(!(direction == "Up")) {
 				direction="Down";
 			}
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) ||handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A)){
 			if(!(direction == "Right")) {
-				direction="Left";
+				direction="Left"; 
 			}
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) || handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)) {
 			if(!(direction == "Left")) {
 				direction="Right";
 			}
@@ -126,11 +126,24 @@ public class Player {
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
 		}
-
-		for (int i = 0; i < handler.getWorld().body.size(); i++) {
-			if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
-					handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) {
-				dead = true;
+		if(handler.getWorld().appleLocation1[xCoord][yCoord]){
+			Eat();
+		}
+		
+		if(Main.GameSetUp.multiplayer == false) {
+			for (int i = 0; i < handler.getWorld().body.size(); i++) {
+				if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
+						handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) {
+					dead = true;
+				}
+			}
+		}else {
+			for (int i = 0; i < handler.getWorld().body.size(); i++) {
+				if((handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
+						handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) || (handler.getWorld().player2.xCoord == handler.getWorld().body.get(i).x &&
+						handler.getWorld().player2.yCoord == handler.getWorld().body.get(i).y)) {
+					dead = true;
+				}
 			}
 		}
 
@@ -166,14 +179,16 @@ public class Player {
 								handler.getWorld().GridPixelsize);
 					}
 				}
-				if(handler.getWorld().getApple().isGood() == false) {
-					g.setColor(new Color(rotten));
-					if(handler.getWorld().appleLocation[i][j]) {
+				if(Main.GameSetUp.multiplayer == false) {
+					if(handler.getWorld().getApple().isGood() == false) {
 						g.setColor(new Color(rotten));
-						g.fillRect((i*handler.getWorld().GridPixelsize),
-								(j*handler.getWorld().GridPixelsize),
-								handler.getWorld().GridPixelsize,
-								handler.getWorld().GridPixelsize);
+						if(handler.getWorld().appleLocation[i][j]) {
+							g.setColor(new Color(rotten));
+							g.fillRect((i*handler.getWorld().GridPixelsize),
+									(j*handler.getWorld().GridPixelsize),
+									handler.getWorld().GridPixelsize,
+									handler.getWorld().GridPixelsize);
+						}
 					}
 				}
 			}
@@ -196,7 +211,9 @@ public class Player {
 
 	public void Eat(){
 		lenght++;
-		score();
+		if(Main.GameSetUp.multiplayer == false) {
+			score();
+		}
 		justAte = true;
 		steps=0;
 

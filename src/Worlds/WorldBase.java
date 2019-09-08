@@ -1,12 +1,14 @@
 package Worlds;
 
+import java.awt.Graphics;
+import java.util.LinkedList;
+
 import Game.Entities.Dynamic.Player;
 import Game.Entities.Dynamic.Tail;
+import Game.Entities.Dynamic.Tail2;
 import Game.Entities.Static.Apple;
 import Main.Handler;
-
-import java.awt.*;
-import java.util.LinkedList;
+import Game.Entities.Dynamic.Player2;
 
 
 /**
@@ -24,6 +26,7 @@ public abstract class WorldBase {
     public int GridPixelsize;
 
     public Player player;
+    public Player2 player2;
 
     protected Handler handler;
 
@@ -31,9 +34,10 @@ public abstract class WorldBase {
     protected Apple apple;
     public Boolean[][] appleLocation;
     public Boolean[][] playerLocation;
-
+    public Boolean[][] appleLocation1;
+    public Boolean[][] playerLocation1;
     public LinkedList<Tail> body = new LinkedList<>();
-
+    public LinkedList<Tail2> body1 = new LinkedList<>();
 
     public WorldBase(Handler handler){
         this.handler = handler;
