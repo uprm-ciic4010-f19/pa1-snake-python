@@ -181,14 +181,27 @@ public class GameSetUp implements Runnable {
      	if(State.getState() == gameState && handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
      		State.setState(pauseState);
      	}
-     	if(State.getState() == gameState && Player.dead == true || Player2.dead == true) {
+     	if(State.getState() == gameState && Player.dead == true ) {
      		State.setState(gameOver);
      	}
-    	if(State.getState() != gameOver && Player.dead == true || Player2.dead == true ) {
+    	if(State.getState() != gameOver && Player.dead == true  ) {
      		Player.dead = false;
+     		
      	}
-        if(State.getState() != null)
+        if(State.getState() != null) {
             State.getState().tick();
+        }
+        if(Main.GameSetUp.winner1 == true ) {
+        	State.setState(winState);
+        }
+        if(Main.GameSetUp.winner2 == true ) {
+        	State.setState(winState);
+        }
+       
+        if(State.getState() != winState && (Main.GameSetUp.winner1 == true || Main.GameSetUp.winner2 == true)) {
+        	Main.GameSetUp.winner1 = false;
+        	Main.GameSetUp.winner2 = false;
+        }
     }
     
 

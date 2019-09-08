@@ -32,7 +32,7 @@ public class GameState extends State {
             }
         }
         handler.getWorld().playerLocation[handler.getWorld().player.xCoord][handler.getWorld().player.yCoord] =true;
-        handler.getWorld().playerLocation1[handler.getWorld().player2.xCoord][handler.getWorld().player2.yCoord] =true;
+        handler.getWorld().playerLocation1[handler.getWorld().player2.Xcoord1][handler.getWorld().player2.ycoord1] =true;
     }
 
     @Override

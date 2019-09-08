@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-
+import Game.Entities.Dynamic.Player2;
 import Main.Handler;
 
 /**
@@ -29,7 +29,7 @@ public class Player {
 		this.handler = handler;
 		xCoord = 2;
 		yCoord = 2;
-		speed = 20;
+		speed = 5;
 		moveCounter = 0;
 		direction = "Right";
 		justAte = false;
@@ -80,8 +80,10 @@ public class Player {
 			speed++;
 		}
 		//Checking the state of the apple.
-		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
-			handler.getWorld().getApple().setIsGood(false);
+		if(Main.GameSetUp.multiplayer == false) {
+			if (steps >= handler.getWorld().GridWidthHeightPixelCount * 2) {
+				handler.getWorld().getApple().setIsGood(false);
+			}
 		}
 	}
 
@@ -126,10 +128,13 @@ public class Player {
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
 		}
-		if(handler.getWorld().appleLocation1[xCoord][yCoord]){
-			Eat();
+		//Eats the enemies food.
+		if(Main.GameSetUp.multiplayer == true) {
+			if(handler.getWorld().appleLocation1[xCoord][yCoord]){
+				Eat();
+			}
 		}
-		
+		//Death of the single player and multiplayer.
 		if(Main.GameSetUp.multiplayer == false) {
 			for (int i = 0; i < handler.getWorld().body.size(); i++) {
 				if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
@@ -137,12 +142,17 @@ public class Player {
 					dead = true;
 				}
 			}
-		}else {
+		}else if(Main.GameSetUp.multiplayer == true){
 			for (int i = 0; i < handler.getWorld().body.size(); i++) {
-				if((handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
-						handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) || (handler.getWorld().player2.xCoord == handler.getWorld().body.get(i).x &&
-						handler.getWorld().player2.yCoord == handler.getWorld().body.get(i).y)) {
-					dead = true;
+				if(handler.getWorld().player.xCoord == handler.getWorld().body.get(i).x &&
+						handler.getWorld().player.yCoord == handler.getWorld().body.get(i).y) {
+
+					Main.GameSetUp.winner2 = true;
+				}
+				if(handler.getWorld().player2.Xcoord1 == handler.getWorld().body.get(i).x &&
+						handler.getWorld().player2.ycoord1 == handler.getWorld().body.get(i).y) {
+
+					Main.GameSetUp.winner1 = true;
 				}
 			}
 		}
@@ -213,6 +223,8 @@ public class Player {
 		lenght++;
 		if(Main.GameSetUp.multiplayer == false) {
 			score();
+		}else {
+			handler.getWorld().getApple().setIsGood(true);
 		}
 		justAte = true;
 		steps=0;
@@ -318,16 +330,18 @@ public class Player {
 			break;
 		}
 		if(handler.getWorld().getApple().isGood() == true){
-			speed = speed - 4;
+			speed = speed - 1;
 			handler.getWorld().body.addLast(tail);
 			handler.getWorld().playerLocation[tail.x][tail.y] = true;
 		}
-		if(handler.getWorld().getApple().isGood() == false) {
-			speed = speed + 4;
-			if(!handler.getWorld().body.isEmpty() ){
-				handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
-				handler.getWorld().body.removeLast();
-				kill();
+		if(Main.GameSetUp.multiplayer == false) {
+			if(handler.getWorld().getApple().isGood() == false) {
+				speed = speed + 1;
+				if(!handler.getWorld().body.isEmpty() ){
+					handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
+					handler.getWorld().body.removeLast();
+					kill();
+				}
 			}
 			else {
 				kill();
