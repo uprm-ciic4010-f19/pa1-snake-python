@@ -336,14 +336,14 @@ public class Player {
 		if(Main.GameSetUp.multiplayer == false) {
 			if(handler.getWorld().getApple().isGood() == false) {
 				speed = speed + 1;
-				if(!handler.getWorld().body.isEmpty() ){
+				if(!handler.getWorld().body.isEmpty()){
 					handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 					handler.getWorld().body.removeLast();
 					kill();
 				}
-			}
-			else {
-				kill();
+				else {
+					kill();
+				}
 			}
 		}
 	}

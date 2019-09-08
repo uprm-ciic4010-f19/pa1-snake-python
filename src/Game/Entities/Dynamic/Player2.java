@@ -79,10 +79,6 @@ public class Player2 {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_9)){
 			speed++;
 		}
-		//Checking the state of the apple.
-//		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
-//			handler.getWorld().getApple().setIsGood(false);
-//		}
 	}
 
 	public void checkCollisionAndMove(){
@@ -122,10 +118,6 @@ public class Player2 {
 		}
 
 		handler.getWorld().playerLocation1[Xcoord1][ycoord1]=true;
-
-//		if(handler.getWorld().appleLocation[Player.xCoord][Player.yCoord]){
-//			Eat();
-//		}
 
 		if(handler.getWorld().appleLocation[Xcoord1][ycoord1]){
 			Eat();
@@ -338,9 +330,9 @@ public class Player2 {
 					handler.getWorld().body1.removeLast();
 					kill();
 				}
-			}
-			else {
-				kill();
+				else {
+					kill();
+				}
 			}
 		}
 	}
