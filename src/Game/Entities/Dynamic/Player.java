@@ -17,8 +17,8 @@ public class Player {
 	public static boolean dead;
 	private Handler handler;
 
-	public int xCoord;
-	public int yCoord;
+	public static int xCoord;
+	public static int yCoord;
 	public static double score;
 	public int moveCounter;
 	public int speed;
@@ -193,7 +193,6 @@ public class Player {
 					if(handler.getWorld().getApple().isGood() == false) {
 						g.setColor(new Color(rotten));
 						if(handler.getWorld().appleLocation[i][j]) {
-							g.setColor(new Color(rotten));
 							g.fillRect((i*handler.getWorld().GridPixelsize),
 									(j*handler.getWorld().GridPixelsize),
 									handler.getWorld().GridPixelsize,

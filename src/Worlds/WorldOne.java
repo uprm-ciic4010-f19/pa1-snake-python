@@ -49,7 +49,6 @@ public class WorldOne extends WorldBase{
 			apple = new Apple(handler,appleX,appley);
 			
 			appleLocation[appleX][appley]=true;
-			appleLocation1[appleX][appley]=true;
 		}
 	}
 

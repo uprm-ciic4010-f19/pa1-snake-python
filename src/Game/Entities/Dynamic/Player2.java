@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-import Game.Entities.Dynamic.Player;
+
 import Main.Handler;
 
 /**
@@ -67,22 +67,22 @@ public class Player2 {
 				direction="Right";
 			}
 		}
-		//Button added (N).
+		//Button added (M).
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
 			handler.getWorld().body1.addFirst(new Tail2(Xcoord1, ycoord1,handler));
 		}
-		//Button added (+) Speed boost.
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
+		//Button added (0) Speed boost.
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_0)){
 			speed--;
 		}
-		//Button added (-) Speed reduced
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+		//Button added (9) Speed reduced
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_9)){
 			speed++;
 		}
 		//Checking the state of the apple.
-		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
-			handler.getWorld().getApple().setIsGood(false);
-		}
+//		if (steps >= handler.getWorld().GridWidthHeightPixelCount) {
+//			handler.getWorld().getApple().setIsGood(false);
+//		}
 	}
 
 	public void checkCollisionAndMove(){
@@ -123,9 +123,9 @@ public class Player2 {
 
 		handler.getWorld().playerLocation1[Xcoord1][ycoord1]=true;
 
-		if(handler.getWorld().appleLocation1[Xcoord1][ycoord1]){
-			Eat();
-		}
+//		if(handler.getWorld().appleLocation[Player.xCoord][Player.yCoord]){
+//			Eat();
+//		}
 
 		if(handler.getWorld().appleLocation[Xcoord1][ycoord1]){
 			Eat();
@@ -170,14 +170,14 @@ public class Player2 {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount ; j++) {
 
 				g.setColor(new Color(snake));
-				if(playerLocation1[i][j]||handler.getWorld().appleLocation1[i][j]){
+				if(playerLocation1[i][j]||handler.getWorld().appleLocation[i][j]){
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
 				}
 				if(handler.getWorld().getApple().isGood() == true){
-					if(handler.getWorld().appleLocation1[i][j]) {
+					if(handler.getWorld().appleLocation[i][j]) {
 						g.setColor(new Color(apple));
 						g.fillRect((i*handler.getWorld().GridPixelsize),
 								(j*handler.getWorld().GridPixelsize),
@@ -188,8 +188,7 @@ public class Player2 {
 				if(Main.GameSetUp.multiplayer == false) {
 					if(handler.getWorld().getApple().isGood() == false) {
 						g.setColor(new Color(rotten));
-						if(handler.getWorld().appleLocation1[i][j]) {
-							g.setColor(new Color(rotten));
+						if(handler.getWorld().appleLocation[i][j]) {
 							g.fillRect((i*handler.getWorld().GridPixelsize),
 									(j*handler.getWorld().GridPixelsize),
 									handler.getWorld().GridPixelsize,
@@ -217,7 +216,7 @@ public class Player2 {
 
 	public void Eat(){
 		lenght++;
-		//Check if game is played on multiplayer or singlepalyer.
+		//Check if game is played on multiplayer or singleplayer.
 		if(Main.GameSetUp.multiplayer == false) {
 			score();
 		}else {
@@ -227,7 +226,7 @@ public class Player2 {
 		steps=0;
 
 		Tail2 tail= null;
-		handler.getWorld().appleLocation1[Xcoord1][ycoord1]=false;
+		handler.getWorld().appleLocation[Xcoord1][ycoord1]=false;
 		handler.getWorld().appleOnBoard=false;
 		switch (direction){
 		case "Left":

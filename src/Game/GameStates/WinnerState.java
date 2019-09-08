@@ -56,7 +56,5 @@ public class WinnerState extends State {
 		}else if (Main.GameSetUp.winner2 == true){
 			g.drawImage(Images.Winner2,0,0,600,500,null);
 		}
-
-
 	}
 }
