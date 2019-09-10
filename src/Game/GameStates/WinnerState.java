@@ -1,13 +1,12 @@
 package Game.GameStates;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import Main.Handler;
 import Resources.Images;
 import UI.UIImageButton;
 import UI.UIManager;
-
-import java.awt.*;
-
-import Game.Entities.Dynamic.Player;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -56,5 +55,6 @@ public class WinnerState extends State {
 		}else if (Main.GameSetUp.winner2 == true){
 			g.drawImage(Images.Winner2,0,0,800,600,null);
 		}
+        uiManager.Render(g);
 	}
 }

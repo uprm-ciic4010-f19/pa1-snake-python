@@ -41,7 +41,6 @@ public class MenuState extends State {
                 State.setState(handler.getGame().gameState);
             }
         })); 
-        
     }
 
     @Override
@@ -59,6 +58,4 @@ public class MenuState extends State {
         uiManager.Render(g);
 
     }
-
-
 }
