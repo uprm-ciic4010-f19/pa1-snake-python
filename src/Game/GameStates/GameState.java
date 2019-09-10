@@ -13,42 +13,44 @@ import java.awt.*;
  */
 public class GameState extends State {
 
-    private WorldBase world;
+	private WorldBase world;
 
-    public GameState(Handler handler){
-        super(handler);
-        world = new WorldOne(handler);
-        handler.setWorld(world);
-        handler.getWorld().player= new Player(handler);
-        handler.getWorld().player2 = new Player2(handler);
-        for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
-            for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
+	public GameState(Handler handler){
+		super(handler);
+		world = new WorldOne(handler);
+		handler.setWorld(world);
+		handler.getWorld().player= new Player(handler);
+		handler.getWorld().player2 = new Player2(handler);
+		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
+			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
-                handler.getWorld().playerLocation[i][j]=false;
-                handler.getWorld().appleLocation[i][j]=false;
-                handler.getWorld().playerLocation1[i][j]=false;
-                handler.getWorld().appleLocation1[i][j]=false;
+				handler.getWorld().playerLocation[i][j]=false;
+				handler.getWorld().appleLocation[i][j]=false;
+				handler.getWorld().playerLocation1[i][j]=false;
+				handler.getWorld().appleLocation1[i][j]=false;
 
-            }
-        }
-        handler.getWorld().playerLocation[handler.getWorld().player.xCoord][handler.getWorld().player.yCoord] =true;
-        handler.getWorld().playerLocation1[handler.getWorld().player2.Xcoord1][handler.getWorld().player2.ycoord1] =true;
-    }
+			}
+		}
+		handler.getWorld().playerLocation[handler.getWorld().player.xCoord][handler.getWorld().player.yCoord] =true;
+		handler.getWorld().playerLocation1[handler.getWorld().player2.Xcoord1][handler.getWorld().player2.ycoord1] =true;
+	}
 
-    @Override
-    public void tick() {
-    	 
-        handler.getWorld().tick();
+	@Override
+	public void tick() {
 
-    }
+		handler.getWorld().tick();
 
-    @Override
-    public void render(Graphics g) {
+	}
 
-        handler.getWorld().render(g);
-		g.setColor(Color.green);
-		Font font = new Font ("SansSerif", Font.PLAIN, 24);
-		g.setFont(font);
-		g.drawString("Score: " + Player.score,handler.getWidth()/10-70 ,handler.getHeight()/10-50);
-    }
+	@Override
+	public void render(Graphics g) {
+
+		handler.getWorld().render(g);
+		if(Main.GameSetUp.multiplayer == false) {
+			g.setColor(Color.green);
+			Font font = new Font ("SansSerif", Font.PLAIN, 24);
+			g.setFont(font);
+			g.drawString("Score: " + Player.score,handler.getWidth()/10-70 ,handler.getHeight()/10-50);
+		}
+	}
 }
