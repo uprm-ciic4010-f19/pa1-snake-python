@@ -30,6 +30,8 @@ public class Images {
     public Images() {
 
         butstart = new BufferedImage[3];
+        butSP = new BufferedImage[3];
+        butMP = new BufferedImage[3];
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];

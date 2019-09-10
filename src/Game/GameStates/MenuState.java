@@ -22,7 +22,7 @@ public class MenuState extends State {
         handler.getMouseManager().setUimanager(uiManager);
 
 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butSP, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-50, handler.getHeight()/2-32, 128, 64, Images.butSP, new ClickListlener() {
             @Override
             public void onClick() {
             	Main.GameSetUp.multiplayer = false;
@@ -31,26 +31,8 @@ public class MenuState extends State {
                 State.setState(handler.getGame().gameState);
             }
         })); 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2+32, 128, 64, Images.butSP, new ClickListlener() {
-            @Override
-            public void onClick() {
-            	Main.GameSetUp.multiplayer = true;
-                handler.getMouseManager().setUimanager(null);
-                handler.getGame().reStart();
-                State.setState(handler.getGame().gameState);
-            }
-        })); 
-        
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2+64, 128, 64, Images.butMP, new ClickListlener() {
-            @Override
-            public void onClick() {
-            	Main.GameSetUp.multiplayer = false;
-                handler.getMouseManager().setUimanager(null);
-                handler.getGame().reStart();
-                State.setState(handler.getGame().gameState);
-            }
-        })); 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2+64, 128, 64, Images.butMP, new ClickListlener() {
+
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-50, handler.getHeight()/2+128, 128, 64, Images.butMP, new ClickListlener() {
             @Override
             public void onClick() {
             	Main.GameSetUp.multiplayer = true;
