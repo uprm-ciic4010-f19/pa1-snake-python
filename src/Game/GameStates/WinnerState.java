@@ -52,9 +52,9 @@ public class WinnerState extends State {
 		g.fillRect(0,0,handler.getWidth(),handler.getHeight());
 		//Verifies who the winner is.
 		if(Main.GameSetUp.winner1 == true) {
-			g.drawImage(Images.Winner1,0,0,600,500,null);
+			g.drawImage(Images.Winner1,0,0,800,600,null);
 		}else if (Main.GameSetUp.winner2 == true){
-			g.drawImage(Images.Winner2,0,0,600,500,null);
+			g.drawImage(Images.Winner2,0,0,800,600,null);
 		}
 	}
 }

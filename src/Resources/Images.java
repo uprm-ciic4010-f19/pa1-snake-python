@@ -12,6 +12,8 @@ public class Images {
 
 
     public static BufferedImage[] butstart;
+    public static BufferedImage[] butSP;
+    public static BufferedImage[] butMP;
     public static BufferedImage title;
     public static BufferedImage Pause;
     public static BufferedImage gameOver;
@@ -38,8 +40,8 @@ public class Images {
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             gameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/gameOver.jpg"));
-            Winner1 = ImageIO.read(getClass().getResourceAsStream("/Buttons/Victory1.png"));
-            Winner2 = ImageIO.read(getClass().getResourceAsStream("/Buttons/Victory2.png"));
+            Winner1 = ImageIO.read(getClass().getResourceAsStream("/Buttons/P1Wins.png"));
+            Winner2 = ImageIO.read(getClass().getResourceAsStream("/Buttons/P2Wins.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
@@ -51,6 +53,15 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
             Reset[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Reset.png"));
             Reset[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ResetP.png"));
+            
+            
+            butSP[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormSPBut.png"));
+            butSP[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverSPBut.png"));
+            butSP[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedSPBut.png"));
+            
+            butMP[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormMPBut.png"));
+            butMP[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/HoverMPBut.png"));
+            butMP[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedMPBut.png"));
             
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
             snakeIcon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/SnakeIcon.png")));
