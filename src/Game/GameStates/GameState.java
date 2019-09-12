@@ -37,7 +37,7 @@ public class GameState extends State {
 
 	@Override
 	public void tick() {
-
+ 
 		handler.getWorld().tick();
 
 	}
