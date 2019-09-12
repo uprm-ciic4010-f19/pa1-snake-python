@@ -17,9 +17,10 @@ public class WinnerState extends State {
 
 	public WinnerState(Handler handler) {
 		super(handler);
+		//Winnerstate
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
-
+		//Reset button
 		uiManager.addObjects(new UIImageButton(handler.getWidth()/3 - 200, handler.getHeight()/2 + 150, 128, 64, Images.Reset, () -> { //restart
 			handler.getMouseManager().setUimanager(null);
 			handler.getGame().reStart();
