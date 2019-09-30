@@ -207,10 +207,10 @@ public class Player {
 	public double score() {
 		justAte = false;
 		if(handler.getWorld().getApple().isGood() == false) {
-			score = score - Math.sqrt(2*score+1);
+			score -= Math.sqrt(2*score+1);
 		}
 		if(handler.getWorld().getApple().isGood() == true) {
-			score =  Math.sqrt(2*score+1);
+			score +=  Math.sqrt(2*score+1);
 		}
 		if(score < 0) {
 			score = 0;
